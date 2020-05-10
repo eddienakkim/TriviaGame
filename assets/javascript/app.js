@@ -56,7 +56,7 @@ $( document ).ready(function() {
           },
           {
             question: "What is the name of the giant dragon-slaying crossbow that failed to protect King's Landing?",
-            answers: ["Millipede", "The 'You're Making Me Very Cross(bow)'", "Scorpion", "Mantis"],
+            answers: ["Millipede", "The 'You're Making Me Very Cross(bow)", "Scorpion", "Mantis"],
             values: [false, false, true, false],
             gif: "assets/images/scorpion.gif",
           },
@@ -84,6 +84,7 @@ $( document ).ready(function() {
       var questionArea = $("<div>")
       var timer = $("<h2>")
       var question = $("<h2>")
+      timer.addClass("timerstyle")
 
       $("#content").append(questionArea)
       questionArea.append(timer)
@@ -98,7 +99,7 @@ $( document ).ready(function() {
       time--;
       timer.html("<h2>" + time + " seconds remaining</h2>")
 
-      // If time reaches 0, the question times out, none increases in value, and the timedOut function is called
+      // If time reaches 0, the question times out, timeout increases in value, and the timedOut function is called
       if (time === 0) {
         clearInterval(countDown)
         questionArea.fadeToggle("slow", timedOut)

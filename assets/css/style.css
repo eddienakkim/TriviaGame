@@ -3,6 +3,8 @@
 }
 .jumbotron p {
  color: white;
+ font-family: 'Anton', sans-serif;
+ text-shadow: 2px 2px #ff0000;
 }
 
 .jumbotron img {
@@ -23,20 +25,23 @@ body {
     background-color: white;
     width: 75%;
     margin: auto;
-    height: 600px;
+    height: 650px;
     opacity: 45%;
 }
 
 .answer-buttons {
     border-width: 5px;
-    border-color: orangered;
+    border-color: gray;
     width: 75%;
     padding: 30px;
-    margin: 10px
+    margin: 10px;
+    font-family: 'Lobster', cursive;
+    font-size: larger;
 }
 
 h3 {
     margin: 5px;
+    font-family: 'Lobster', cursive;
 }
 
 img{
@@ -45,4 +50,11 @@ img{
 
 h2{
     margin-top: 100px;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.timerstyle {
+    border-width: 10px;
+    border-style: double;
+    color: red;
 }
