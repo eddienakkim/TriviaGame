@@ -26,7 +26,7 @@ body {
     width: 75%;
     margin: auto;
     height: 650px;
-    opacity: 45%;
+    opacity: 60%;
 }
 
 .answer-buttons {
@@ -38,6 +38,11 @@ body {
     font-family: 'Lobster', cursive;
     font-size: larger;
 }
+
+.answer-buttons:hover {
+    background-color: #555555;
+    color: white;
+  }
 
 h3 {
     margin: 5px;
