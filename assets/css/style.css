@@ -17,6 +17,7 @@ hr{
     border: none;
 }
 
+
 body {
     background-image: url(https://cdn.hipwallpaper.com/i/72/6/IBjeW5.jpg);
 }
@@ -25,7 +26,7 @@ body {
     background-color: white;
     width: 75%;
     margin: auto;
-    height: 650px;
+    height: 570px;
     opacity: 60%;
 }
 
@@ -33,7 +34,7 @@ body {
     border-width: 5px;
     border-color: gray;
     width: 75%;
-    padding: 30px;
+    padding: 15px;
     margin: 10px;
     font-family: 'Lobster', cursive;
     font-size: larger;

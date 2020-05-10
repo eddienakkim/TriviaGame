@@ -1,5 +1,6 @@
 $( document ).ready(function() {
-    var questions = [
+  //setting up the list of questions and answers in variable as an object  
+  var questions = [
         {
             question: "What is the Iron Bank's representative, played by Mark Gatiss, called?",
             answers: ["Xaro Xhoan Daxon", "Howard from the Halifax", "Tycho Nestoris", "Quorin Halfhand"],
@@ -62,13 +63,13 @@ $( document ).ready(function() {
           },
     ]
 
-
+    //setting up initial values for variables
     var currentQuestion = 0;
     var correct = 0; 
     var wrong = 0; 
     var timeout = 0; 
 
-
+    // setting up the onclick event on START button
     $("#start").on("click", ()=>{
         $("#start").fadeToggle("slow")
         $(".lead").fadeToggle("slow")
@@ -77,10 +78,11 @@ $( document ).ready(function() {
 
     
     
-
+    // Set up whole display function
     function displayQ () {
       $(".message-content").remove();
       $("#start").remove();
+      $("#initialimg").remove();
       var questionArea = $("<div>")
       var timer = $("<h2>")
       var question = $("<h2>")
@@ -254,10 +256,5 @@ $( document ).ready(function() {
       timeout = 0;
       displayQ();
     })
-
-  }
-    }
-
-    
-
-    })
+  }}
+ })
