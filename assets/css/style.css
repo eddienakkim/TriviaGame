@@ -4,6 +4,11 @@
 .jumbotron p {
  color: white;
 }
+
+.jumbotron img {
+    margin-top: auto;
+   }
+
 hr{
     height: 5px;
     background-color: #ffffff;
@@ -14,6 +19,30 @@ body {
     background-image: url(https://cdn.hipwallpaper.com/i/72/6/IBjeW5.jpg);
 }
 
-#contentarea {
+#content {
     background-color: white;
+    width: 75%;
+    margin: auto;
+    height: 600px;
+    opacity: 45%;
+}
+
+.answer-buttons {
+    border-width: 5px;
+    border-color: orangered;
+    width: 75%;
+    padding: 30px;
+    margin: 10px
+}
+
+h3 {
+    margin: 5px;
+}
+
+img{
+    width: 100%;
+}
+
+h2{
+    margin-top: 100px;
 }

@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    let questions = [
+    var questions = [
         {
             question: "What is the Iron Bank's representative, played by Mark Gatiss, called?",
             answers: ["Xaro Xhoan Daxon", "Howard from the Halifax", "Tycho Nestoris", "Quorin Halfhand"],
@@ -69,9 +69,194 @@ $( document ).ready(function() {
     var timeout = 0; 
 
 
-    $("#start").on("click", function() {
+    $("#start").on("click", ()=>{
         $("#start").fadeToggle("slow")
         $(".lead").fadeToggle("slow")
+        displayQ()
        })
 
-})
+    
+    
+
+    function displayQ () {
+      $(".message-content").remove();
+      $("#start").remove();
+      var questionArea = $("<div>")
+      var timer = $("<h2>")
+      var question = $("<h2>")
+
+      $("#content").append(questionArea)
+      questionArea.append(timer)
+      questionArea.append(question)
+
+      // Set up the timer.
+    var time = 30;
+    timer.html("<h2>" + time + " seconds remaining</h2>")
+    
+    // Countdown function that will stop when the time hits 0
+    var countDown = setInterval( function() {
+      time--;
+      timer.html("<h2>" + time + " seconds remaining</h2>")
+
+      // If time reaches 0, the question times out, none increases in value, and the timedOut function is called
+      if (time === 0) {
+        clearInterval(countDown)
+        questionArea.fadeToggle("slow", timedOut)
+        tiemout++;
+      }
+    }, 1000);
+
+
+    question.html(questions[currentQuestion].question)
+
+    // Display the answers as list items using a for loop
+    for (var i = 0; i < questions[currentQuestion].answers.length; i++) {
+      var answers = $("<button>")
+      answers.html(questions[currentQuestion].answers[i])
+      answers.addClass("answer-buttons")
+      answers.attr("value", questions[currentQuestion].values[i])
+      answers.attr("id", "a" + i)
+      answers.appendTo(questionArea)
+    };
+    // Slides the answers into place
+    $("#a0").animate({"left": "+=600px"})
+
+
+
+    // If and else if statements to determine what happens, depending on correct answer clicked, or incorrect
+    // First, the click cases
+    $(".answer-buttons").on("click", function() {
+      //checking value of 'this'
+      console.log($(this).attr("value"));
+
+      // If the value is true, clear the content area, stop the counter, and display the correct answer screen
+      if ($(this).attr("value") === "true") {
+        questionArea.fadeToggle("slow", displayCorrect)
+        clearInterval(countDown);
+        correct++;
+      };
+      // If false, clear content area, stop counter, and display wrong answer screen
+      if ($(this).attr("value") === "false") {
+        questionArea.fadeToggle("slow", displayWrong)
+        clearInterval(countDown)
+        wrong++;
+      };
+    });
+  
+
+    
+    function displayCorrect() {
+    var cycle = setTimeout(displayQ, 5000)
+    var messageArea = $("<div>");    
+    messageArea.addClass("message-content")
+    // Declare content that will go into the messageArea
+    var winMessage = $("<h2>");
+    var image = $("<img>")
+    // Append it all to the content container and add text and images
+    messageArea.appendTo($("#content"));
+    winMessage.appendTo($(messageArea));
+    image.appendTo($(messageArea))
+    winMessage.text("Correct!");
+    image.attr("src", questions[currentQuestion].gif)
+
+
+    // If there are no questions left, then run this function to display gameOver
+    if (currentQuestion === (questions.length - 1)) {
+      clearTimeout(cycle);
+      var gameEnd = setTimeout(gameOver, 5000)
+    }
+    currentQuestion++;
+  };
+
+  // This function will display the wrong answer screen
+  function displayWrong() {
+    var cycle = setTimeout(displayQ, 5000);
+    var messageArea = $("<div>");
+    messageArea.addClass("message-content")
+    var lossMessage = $("<h2>");
+    var image = $("<img>")
+    // Append it all to the content container and add text and images
+    messageArea.appendTo($("#content"));
+    lossMessage.appendTo(messageArea)
+    image.appendTo($(messageArea))
+    lossMessage.html("Wrong! The right answer was: " + questions[currentQuestion].answers[questions[currentQuestion].values.indexOf(true)]);
+    image.attr("src", questions[currentQuestion].gif)
+
+    // If there are no questions left, then run this function to display gameOver
+    if (currentQuestion === (questions.length - 1)) {
+      clearTimeout(cycle);
+      var gameEnd = setTimeout(gameOver, 5000)
+    }
+    currentQuestion++;
+  };
+
+  // This will display the time out screen
+  function timedOut() {
+    var cycle = setTimeout(displayQ, 5000);
+    var messageArea = $("<div>");
+    messageArea.addClass("message-content")
+    var lossMessage = $("<h2>");
+    var image = $("<img>")
+    // Append it all to the content container and add text and images
+    messageArea.appendTo($("#content"));
+    lossMessage.appendTo(messageArea)
+    image.appendTo($(messageArea))
+    lossMessage.html("You timed out! The right answer was: " + questions[currentQuestion].answers[questions[currentQuestion].values.indexOf(true)]);
+    image.attr("src", questions[currentQuestion].gif)
+
+    // If there are no questions left, then run this function to display gameOver
+    if (currentQuestion === (questions.length - 1)) { 
+      clearTimeout(cycle);
+      var gameEnd = setTimeout(gameOver, 5000)
+    }
+    currentQuestion++;
+  };
+
+  // This will display when the currentQuestion amount is equal to questions.length - 1. In other words, when all questions have been answered
+  function gameOver() {
+    // Clear out the post-question message
+    $(".message-content").remove();
+    var totalCorrect = $("<h3>")
+    var totalIncorrect = $("<h3>")
+    var totaltimeout = $("<h3>")
+    var restart = $("<button>")
+    totalCorrect.appendTo("#content")
+    totalCorrect.html("You got " + correct + " correct!")
+    totalIncorrect.appendTo("#content")
+    totalIncorrect.html("You got " + wrong + " wrong.")
+    totaltimeout.appendTo("#content")
+    
+    // If block to determine if question or questions should be used
+    if (timeout === 1) {
+      totaltimeout.html("You didn't answer " + timeout + " question.")
+    }
+    if (timeout > 1 || timeout === 0) {
+      totaltimeout.html("You didn't answer " + timeout + " questions.")
+    }
+    
+    
+    // Restart button
+    restart.addClass("restart")
+    restart.text("Restart")
+    restart.appendTo("#content")
+
+
+    //Reset button onclick function
+    $(".restart").on("click", function() {
+      totalCorrect.remove();
+      totalIncorrect.remove();
+      totaltimeout.remove();
+      restart.remove();
+      currentQuestion = 0;
+      correct = 0; //records number of correct answers
+      wrong = 0; //records number of wrong answers
+      timeout = 0;
+      displayQ();
+    })
+
+  }
+    }
+
+    
+
+    })
