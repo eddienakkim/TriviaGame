@@ -70,7 +70,8 @@ $( document ).ready(function() {
     var timeout = 0; 
 
     // setting up the onclick event on START button
-    $("#start").on("click", ()=>{
+    $("#start").on("click", (event)=>{
+        event.preventDefault()
         $("#start").fadeToggle("slow")
         $(".lead").fadeToggle("slow")
         displayQ()
@@ -128,10 +129,10 @@ $( document ).ready(function() {
 
     // If and else if statements to determine what happens, depending on correct answer clicked, or incorrect
     // First, the click cases
-    $(".answer-buttons").on("click", function() {
+    $(".answer-buttons").on("click", function(eventTwo) {
       //checking value of 'this'
       console.log($(this).attr("value"));
-
+      eventTwo.preventDefault()
       // If the value is true, clear the content area, stop the counter, and display the correct answer screen
       if ($(this).attr("value") === "true") {
         questionArea.fadeToggle("slow", displayCorrect)
